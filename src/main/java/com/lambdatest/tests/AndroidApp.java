@@ -15,10 +15,8 @@ import java.util.List;
 
 public class AndroidApp {
 
-    String userName = "amitwalia"; //System.getenv("LT_USERNAME") == null ?
-            //"username" : System.getenv("LT_USERNAME"); //Add username here
-    String accessKey = "SjOTOTQikYHfho5r39aieNJACmUoiofHmhZB8jUyCUG439zMXW"; //System.getenv("LT_ACCESS_KEY") == null ?
-            //"accessKey" : System.getenv("LT_ACCESS_KEY");//Add accessKey here
+    String userName = "Your_Lambdatest_Username";
+    String accessKey = "Your_Lambdatest_AccessKey";
 
     private String Status = "failed";
 
@@ -30,12 +28,9 @@ public class AndroidApp {
     @org.testng.annotations.Parameters(value = {"device", "version", "platform"})
     public void AndroidApp1(String device, String version, String platform) throws Exception {
 
-        String testrailusername = "amitlambda3@gmail.com";//System.getenv("TESTRAIL_USERNAME") != null ? System.getenv("TESTRAIL_USERNAME")
-                //: Configuration.readConfig("TESTRAIL_USERNAME");
-        String testrailpassword = "%Amit1234";//System.getenv("TESTRAIL_PASSWORD") != null ? System.getenv("TESTRAIL_PASSWORD")
-                //: Configuration.readConfig("TESTRAIL_PASSWORD");
-        String testrailurl = "https://amitlambda03.testrail.io/"; //System.getenv("TESTRAIL_URL") != null ? System.getenv("TESTRAIL_URL")
-                //: Configuration.readConfig("TESTRAIL_URL");
+        String testrailusername = "Your TestRail Username";
+        String testrailpassword = "Your TestRail Password";
+        String testrailurl = "Your TestRail URL"; //Example - https://amitlambda03.testrail.io/
 
         TestRailHandler trh = new TestRailHandler(testrailusername,testrailpassword, testrailurl);
 
@@ -48,7 +43,7 @@ public class AndroidApp {
             capabilities.setCapability("platformName", platform);
             capabilities.setCapability("isRealMobile", true);
             //AppURL (Create from Wikipedia.apk sample in project)
-            capabilities.setCapability("app", "lt://APP1016046941678692547703428"); //Enter your app url
+            capabilities.setCapability("app", "LT APP URL"); //Enter your app url
             capabilities.setCapability("deviceOrientation", "PORTRAIT");
             capabilities.setCapability("console", true);
             capabilities.setCapability("network", false);
@@ -109,19 +104,19 @@ public class AndroidApp {
             Status = "passed";
             driver.executeScript("lambda-status=" + Status);
 
-            trh.updateResultToTestRail(4, "4335", "33");
+            trh.updateResultToTestRail(3 /*TestRail Status_Id */, "4335" /*TestRail Case_Id */, "33" /*TestRail Run_Id */);
 
             driver.quit();
 
         } catch (Exception e) {
             e.printStackTrace();
-            trh.updateResultToTestRail(4, "4335", "33");
+            trh.updateResultToTestRail(3 /*TestRail Status_Id */, "4335" /*TestRail Case_Id */, "33" /*TestRail Run_Id */);
 
             try{
                 driver.quit();
             }catch(Exception e1){
                 e.printStackTrace();
-                trh.updateResultToTestRail(4, "4335", "33");
+                trh.updateResultToTestRail(3 /*TestRail Status_Id */, "4335" /*TestRail Case_Id */, "33" /*TestRail Run_Id */);
 
             }
         }
