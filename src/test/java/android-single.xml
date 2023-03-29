@@ -8,7 +8,7 @@
         <parameter name="platform" value="Android" />
         <parameter name="device" value="Galaxy S21 Ultra 5G" />
         <classes>
-            <class name="AndroidApp" />
+            <class name="com.lambdatest.tests.AndroidApp" />
         </classes>
     </test>
 

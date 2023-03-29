@@ -1,3 +1,6 @@
+package com.lambdatest.tests;
+
+import com.lambdatest.library.utils.testrail.TestRailHandler;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -12,10 +15,12 @@ import java.util.List;
 
 public class AndroidApp {
 
-    String userName = System.getenv("LT_USERNAME") == null ?
-            "username" : System.getenv("LT_USERNAME"); //Add username here
-    String accessKey = System.getenv("LT_ACCESS_KEY") == null ?
-            "accessKey" : System.getenv("LT_ACCESS_KEY"); //Add accessKey here
+    String userName = "amitwalia"; //System.getenv("LT_USERNAME") == null ?
+            //"username" : System.getenv("LT_USERNAME"); //Add username here
+    String accessKey = "SjOTOTQikYHfho5r39aieNJACmUoiofHmhZB8jUyCUG439zMXW"; //System.getenv("LT_ACCESS_KEY") == null ?
+            //"accessKey" : System.getenv("LT_ACCESS_KEY");//Add accessKey here
+
+    private String Status = "failed";
 
     public String gridURL = "@mobile-hub.lambdatest.com/wd/hub";
 
@@ -23,7 +28,17 @@ public class AndroidApp {
 
     @Test
     @org.testng.annotations.Parameters(value = {"device", "version", "platform"})
-    public void AndroidApp1(String device, String version, String platform) {
+    public void AndroidApp1(String device, String version, String platform) throws Exception {
+
+        String testrailusername = "amitlambda3@gmail.com";//System.getenv("TESTRAIL_USERNAME") != null ? System.getenv("TESTRAIL_USERNAME")
+                //: Configuration.readConfig("TESTRAIL_USERNAME");
+        String testrailpassword = "%Amit1234";//System.getenv("TESTRAIL_PASSWORD") != null ? System.getenv("TESTRAIL_PASSWORD")
+                //: Configuration.readConfig("TESTRAIL_PASSWORD");
+        String testrailurl = "https://amitlambda03.testrail.io/"; //System.getenv("TESTRAIL_URL") != null ? System.getenv("TESTRAIL_URL")
+                //: Configuration.readConfig("TESTRAIL_URL");
+
+        TestRailHandler trh = new TestRailHandler(testrailusername,testrailpassword, testrailurl);
+
         try {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("build","Java TestNG Android");
@@ -33,7 +48,7 @@ public class AndroidApp {
             capabilities.setCapability("platformName", platform);
             capabilities.setCapability("isRealMobile", true);
             //AppURL (Create from Wikipedia.apk sample in project)
-            capabilities.setCapability("app", "APP_URL"); //Enter your app url
+            capabilities.setCapability("app", "lt://APP1016046941678692547703428"); //Enter your app url
             capabilities.setCapability("deviceOrientation", "PORTRAIT");
             capabilities.setCapability("console", true);
             capabilities.setCapability("network", false);
@@ -91,14 +106,23 @@ public class AndroidApp {
             MobileElement find = (MobileElement) driver.findElementById("com.lambdatest.proverbial:id/find");
             find.click();
 
+            Status = "passed";
+            driver.executeScript("lambda-status=" + Status);
+
+            trh.updateResultToTestRail(4, "4335", "33");
+
             driver.quit();
 
         } catch (Exception e) {
             e.printStackTrace();
+            trh.updateResultToTestRail(4, "4335", "33");
+
             try{
                 driver.quit();
             }catch(Exception e1){
                 e.printStackTrace();
+                trh.updateResultToTestRail(4, "4335", "33");
+
             }
         }
 
